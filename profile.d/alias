@@ -1,0 +1,12 @@
+alias ll="ls -lGa"
+alias la="ls -Ga"
+alias l="ls -Ga"
+
+alias h=history
+alias hm="history | more"
+alias tarc="tar -zcvf"
+alias tarx="tar -zxvf"
+
+alias cat=lolcat
+
+

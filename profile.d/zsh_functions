@@ -1,0 +1,10 @@
+pwd-paths() {
+  local PATHS=(${(s:/:)PWD})
+  local IFS='/'
+  local l=${#PATHS[@]}
+  for ((i=0; i<=l; i++));
+  do
+    printf "/${PATHS[*]}\n"
+    PATHS[-1]=()
+  done
+}
