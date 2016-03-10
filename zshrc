@@ -55,7 +55,7 @@ ZSH_THEME="amuse"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 #plugins=(git)
-plugins=(git cp catimg emoji emoji-clock)
+plugins=(git cp catimg emoji emoji-clock mvn brew)
 
 # User configuration
 
@@ -94,4 +94,5 @@ custom_load ~/.profile.d/functions
 custom_load ~/.profile.d/zsh_functions
 custom_load ~/.profile.d/exports
 
+eval $(thefuck --alias)
 

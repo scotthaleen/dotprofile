@@ -1,6 +1,6 @@
 
 fzf-history(){
-  eval $(history | fzf +s | sed 's/ *[0-9]* *//');
+  eval $(history | fzf --tac +s | sed 's/ *[0-9]* *//');
 };
 
 fzf-killps(){
@@ -32,3 +32,4 @@ fzf-clipboard(){
 time-now(){
   date +"%Y%m%d%H%M%S"
 }
+

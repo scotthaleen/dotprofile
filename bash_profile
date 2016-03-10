@@ -4,10 +4,10 @@ custom_load () {
 }
 
 custom_load ~/.profile.d/alias
-custom_load ~/.profile.d/bash_constants
 custom_load ~/.profile.d/functions
 custom_load ~/.profile.d/bash_functions
 custom_load ~/.profile.d/exports
+custom_load ~/.profile.d/bash_constants
 
 
 custom_load ~/.hub
