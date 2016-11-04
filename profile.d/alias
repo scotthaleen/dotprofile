@@ -8,5 +8,6 @@ alias tarc="tar -zcvf"
 alias tarx="tar -zxvf"
 
 alias cat=lolcat
+alias start-proxy=cntlm
 
 
