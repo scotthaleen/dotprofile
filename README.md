@@ -4,6 +4,9 @@
 
 `cp ~/.fonts/* ~/Library/Fonts/`
 
+Must use Powerline font in iTerm, for \uE0A0 to render in **amuse** theme
+
+
 `brew install zsh`
 
 Change default shell to zsh 
