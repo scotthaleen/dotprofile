@@ -1,5 +1,7 @@
 ### dotprofile
 
+`brew install zsh`
+
 Change default shell to zsh 
 
 - add brew zsh path to `/etc/shells` <br/>
