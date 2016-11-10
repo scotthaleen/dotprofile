@@ -1,5 +1,9 @@
 ### dotprofile
 
+#### Fonts 
+
+`cp ~/.fonts/* ~/Library/Fonts/`
+
 `brew install zsh`
 
 Change default shell to zsh 
