@@ -10,7 +10,12 @@ if installed with brew path is `/usr/local/bin/zsh`
 - update default shell <br />
 `$ chsh -s $(which zsh)`
 
+
+
 ### installs
+
+`brew install ruby`
+
 - [lolcat](https://github.com/busyloop/lolcat) <br/>
 
 `$ gem install lolcat`
