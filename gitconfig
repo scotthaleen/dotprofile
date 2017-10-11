@@ -1,0 +1,47 @@
+[user]
+  name =  {{ name }}
+  email = {{ email }}
+
+[core]
+  editor = emacs
+
+[pull]
+  ff = only
+
+[merge]
+  ff = false
+
+[web]
+  browser = google-chrome
+
+[diff]
+  tool = colordiff
+
+[alias]
+  last = log -1 HEAD
+  diff-last = diff HEAD^ HEAD
+  diff-last-n = "!f() { git diff HEAD~$1 HEAD; }; f"
+  diff-last3 = diff HEAD~3 HEAD
+  ds = diff --staged
+  lsm = ls-files -m
+  co = checkout
+  #b = checkout -b
+  create-branch = "!f() { git checkout -b ${1}; }; f"
+  discard = checkout --
+  discard-all = "!f() { git lsm | xargs git discard; }; f"
+  branch-name = rev-parse --abbrev-ref HEAD
+  browser = "!f() { git remote -v | head -n 1 | sed -e 's/[^:]*:\\([^\\.]*\\).*/\\1/' | xargs -I {} open \"https://github.com/{}/tree/$(git branch-name)\"; }; f"
+  cleanup = "!f() { git fetch -p && for branch in `git branch -vv | grep ': gone]' | awk '{print $1}'`; do git branch -D $branch; done; }; f"
+  print-default = "!f() { git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@' | xargs printf;  }; f"
+  co-default = "!f() { git print-default | xargs git co; }; f"
+  untracked = ls-files --others --exclude-standard
+  lgb = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset%n' --abbrev-commit --date=relative --branches
+  aliases = config --get-regexp alias
+  log-commits = "!f() { git --no-pager log --format='%H   %an' -n 10; }; f"
+  ls-commit = "!f() { git diff-tree --no-commit-id --name-only -r $1..HEAD; }; f"
+
+[hub]
+  host = github.com
+
+
+[init]
