@@ -39,7 +39,8 @@
   aliases = config --get-regexp alias
   log-commits = "!f() { git --no-pager log --format='%H   %an' -n 10; }; f"
   ls-commit = "!f() { git diff-tree --no-commit-id --name-only -r $1..HEAD; }; f"
-
+  fix-remote-head = remote set-head origin -a
+  
 [hub]
   host = github.com
 
