@@ -1,0 +1,2 @@
+{{ range .issues }}{{color "red+bh"}}{{ .key | printf "%-12s"}}{{color "reset"}}  {{color "green"}}{{if .fields.assignee}}{{.fields.assignee.displayName | printf "%-14s"}}{{else}}{{"" | printf "%-14s"}}{{end}}{{color "reset"}} {{color "blue+bh"}}{{ .fields.status.name | printf "%-14s"}}{{color "reset"}} {{ .fields.summary }}
+{{ end }}
