@@ -1,11 +1,26 @@
 
-export JAVA_HOME=$(/usr/libexec/java_home)
-#export M2_HOME=/usr/local/opt/maven/
-export PATH=/usr/local/opt/ruby/bin:$PATH
+# explicit default JAVA_HOME 1.8
+export JAVA_HOME=$(/usr/libexec/java_home -v '1.8*')
+#export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_202.jdk/Contents/Home
 
-export MAVEN_OPTS="-Xdebug -Xnoagent -ms1024m -mx3000m -Djava.compiler=NONE -Xrunjdwp:transport=dt_socket,address=4000,server=y,suspend=n"
+#export M2_HOME=/usr/local/opt/maven/
+#export MAVEN_OPTS="-Xdebug -Xnoagent -ms1024m -mx3000m -Djava.compiler=NONE -Xrunjdwp:transport=dt_socket,address=4000,server=y,suspend=n"
+#PYTHONPATH=/usr/local/lib/python2.7/site-packages:${PYTHONPATH}
 
 export USER_MEM_ARGS="-mx1024m"
+
+export PATH=/usr/local/opt/ruby/bin:$PATH
+export PATH="$HOME/.jenv/bin:$PATH"
+eval "$(jenv init -)"
+
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
+eval "$(jira --completion-script-zsh)"
+
+export EDITOR=emacs
 
 export HOMEBREW_GITHUB_API_TOKEN=<token>
 

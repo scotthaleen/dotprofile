@@ -10,4 +10,7 @@ alias tarx="tar -zxvf"
 alias cat=lolcat
 alias start-proxy=cntlm
 
-
+alias j=jobs
+alias gr='"$(git rev-parse --show-toplevel)"/gradlew'
+alias weather=wego
+alias weather=wego

@@ -9,7 +9,12 @@
   ff = only
 
 [merge]
-  ff = false
+  #ff = false
+
+[pager]
+  branch = false
+  stash = false
+  dn = false
 
 [web]
   browser = google-chrome
@@ -25,10 +30,15 @@
   ds = diff --staged
   lsm = ls-files -m
   co = checkout
-  #b = checkout -b
-  create-branch = "!f() { git checkout -b ${1}; }; f"
+  b = branch
+  fco = "!f() { git fb $1 | sed 's/remotes\\/origin\\///g' | xargs git checkout; }; f"
+  fcor = "!f() { git fbr | sed 's/remotes\\/origin\\///g' | xargs git checkout; }; f"
+  fb = "!f() { git branch -a | sed 's/^[\\* ] //' | fzf --extended --multi --exit-0 --select-1 --query \"$@\" --preview='git log {}'; }; f"
+  fbr = "!f() { git branch -a | sed 's/^[\\* ] //' | fzf --extended --multi --exit-0 --select-1 --preview='git log {}'; }; f"
   discard = checkout --
   discard-all = "!f() { git lsm | xargs git discard; }; f"
+  unstage-all = "!f() { git dn --staged | xargs git reset HEAD; }; f"
+  unstage = reset HEAD
   branch-name = rev-parse --abbrev-ref HEAD
   browser = "!f() { git remote -v | head -n 1 | sed -e 's/[^:]*:\\([^\\.]*\\).*/\\1/' | xargs -I {} open \"https://github.com/{}/tree/$(git branch-name)\"; }; f"
   cleanup = "!f() { git fetch -p && for branch in `git branch -vv | grep ': gone]' | awk '{print $1}'`; do git branch -D $branch; done; }; f"
@@ -40,9 +50,24 @@
   log-commits = "!f() { git --no-pager log --format='%H   %an' -n 10; }; f"
   ls-commit = "!f() { git diff-tree --no-commit-id --name-only -r $1..HEAD; }; f"
   fix-remote-head = remote set-head origin -a
-  
+  show-config = "!f() { cat ~/.gitconfig; }; f"
+  dn = "diff --name-only"
+  conflicts = "!f() { git dn --diff-filter=U; }; f"
+  next-conflict = "!f() { git conflicts | head | xargs printf | xargs emacs -chdir $(pwd); }; f"
+  jira-number = "!f() { git branch-name | sed 's/-.*//' | xargs printf; }; f"
+
+  ## Requires https://github.com/Netflix-Skunkworks/go-jira
+  create-branch = "!f() { git checkout -b $(jira git-branch-desc ${1}); }; f"
+  jira-browse = "!f() { jira browse $(git jira-number); }; f"
+  jira-desc = "!f() { jira view $(git jira-number); }; f"
+
+
 [hub]
   host = github.com
 
-
 [init]
+[filter "lfs"]
+  smudge = git-lfs smudge -- %f
+  process = git-lfs filter-process
+  required = true
+  clean = git-lfs clean -- %f

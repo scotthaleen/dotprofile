@@ -29,6 +29,14 @@ fzf-clipboard(){
 };
 
 
+shurg() {
+ printf "¯\_(ツ)_/¯"
+}
+
+snowman() {
+ printf "☃"
+}
+
 time-now(){
   date +"%Y%m%d%H%M%S"
 }
@@ -45,4 +53,46 @@ unset_env_proxy(){
   unset http_proxy
   unset https_proxy
   unset no_proxy
+}
+
+keychain() {
+  # osx keychain to clipboard
+  security find-generic-password -a $1 -s $2 -w | pbcopy
+  printf "\033[32;1m $2 password copied to clipboard. \033[0m\n"
+}
+
+gif() {
+  local infile
+  local outfile
+  if (( ${#*} == 0 )); then
+     echo "nothing to do"
+  elif (( ${#*} == 1 )); then
+    infile=${1}
+    outfile="${infile:r}.gif"
+    ffmpeg -i "${infile}" -s 600x400 -pix_fmt rgb24 -r 10 -f gif - | gifsicle --optimize=3 --delay=3 > "${outfile}"
+  fi
+}
+
+gifopt() {
+  local infile
+  local outfile
+  local palette
+  local R
+  local pallet
+  local filters
+
+  if (( ${#*} == 0 )); then
+     echo "nothing to do"
+  elif (( ${#*} == 1 )); then
+    R=$(cat /dev/urandom | env LC_CTYPE=C tr -cd 'a-zA-Z0-9' | head -c 12)
+    infile="${1}"
+    outfile="${infile:r}.gif"
+    palette="/tmp/palette-${R}.png"
+
+    filters="fps=10,scale=640:-1:flags=lanczos"
+    ffmpeg -v warning -i "${infile}" -vf "$filters,palettegen" -y "${palette}"
+    ffmpeg -v warning -i "${infile}" -i "$palette" -lavfi "$filters [x]; [x][1:v] paletteuse" -y "${outfile}"
+
+    rm "${palette}"
+  fi
 }

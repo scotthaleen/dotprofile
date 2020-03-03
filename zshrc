@@ -2,6 +2,7 @@ custom_load () {
   [[ -s ${1} ]] && source ${1}
 }
 
+HISTFILE=$HOME/Source/dotprofile/zsh_history
 
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
@@ -55,7 +56,8 @@ ZSH_THEME="amuse"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 #plugins=(git)
-plugins=(git cp catimg emoji emoji-clock mvn)
+#plugins=(git cp catimg emoji emoji-clock mvn ctool chucknorris)
+plugins=(git cp catimg ctool)
 
 # User configuration
 
