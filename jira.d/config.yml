@@ -1,0 +1,49 @@
+user: <USERNAME>
+login: <LOGIN_NAME>
+endpoint: <HTTPS_ENDPOINT>
+project: <PROJECT>
+editor: emacs -nw
+password-source: keyring
+
+custom-commands:
+  - name: mine
+    help: display issues assigned to me
+    script: |-
+      {{jira}} list --query "resolution = unresolved and assignee=currentuser() ORDER BY created"
+
+  - name: mineall
+    help: display all issues assigned to me
+    script: |-
+      {{jira}} list --query "resolution = unresolved and (assignee=currentuser() OR Reviewer = currentUser() OR Reviewer2 = currentUser()) ORDER BY status" --template my-list
+
+  - name: git-branch-desc
+    help: display issue
+    args:
+      - name: ISSUE_NUMBER
+        required: true
+    script: |-
+      R=$({{jira}} list --query "issue = $JIRA_PROJECT-{{args.ISSUE_NUMBER}}")
+      DESC=$(tr "[:upper:]" "[:lower:]" <<< ${R##*:})
+      d="{{args.ISSUE_NUMBER}}-${DESC// /-}"
+      d="${d//[\(\)\']/}"
+      echo "${d}"
+
+  - name: tl
+    help: test
+    script: |-
+      {{jira}} list --query "resolution = unresolved and (assignee=currentuser() OR Reviewer = currentUser() OR Reviewer2 = currentUser()) ORDER BY created" --template my-test
+
+  - name: pr
+    help: pr field
+    args:
+      - name: ISSUE_NUMBER
+        required: true
+    script: |-
+      LINK=$({{jira}} view {{args.ISSUE_NUMBER}} --template pr-field)
+      [[ "${LINK}" =~ ([0-9]+) ]]
+      PR="${BASH_REMATCH}"
+
+      echo ${PR}
+
+
+
